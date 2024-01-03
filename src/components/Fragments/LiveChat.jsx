@@ -41,7 +41,7 @@ const LiveChat = ({ open, setOpen, islogin }) => {
               />
             </svg>
           </div>
-          <div className="mx-0 flex items-center gap-4 pt-0 px-4">
+          {/* <div className="mx-0 flex items-center gap-4 pt-0 px-4">
             <Avatar
               size="lg"
               variant="circular"
@@ -57,7 +57,7 @@ const LiveChat = ({ open, setOpen, islogin }) => {
               </div>
               <Typography color="blue-gray">Admin Lead @ Google</Typography>
             </div>
-          </div>
+          </div> */}
 
           <DialogBody className="flex w-full flex-col gap-3 pt-6">
             <div className="flex justify-end">
