@@ -1,27 +1,44 @@
-import { Link } from "react-router-dom";
-import { Router } from "./router";
+import React, { useEffect } from "react";
+import Navbar from "./components/Layouts/Navbar";
+import Sidebar from "./components/Layouts/Sidebar";
+import Landing from "./Pages/Landing";
 
-function App() {
+export default function App() {
+  const [isLogin, setLogin] = React.useState(false);
+  const [content, setContent] = React.useState(false);
+
+  const handleSidebarInteraction = (props) => {
+    console.log(props);
+    setContent(props);
+  };
+  const localStorage = window.localStorage;
+  let sessionData = localStorage["FiveWm"];
+  const Session = sessionData && JSON.parse(sessionData);
+
+  useEffect(() => {
+    if (Session) {
+      setLogin(true);
+    }
+  }, []);
+
   return (
     <>
-      <div className="m-5">
-        <h1 className="text-2xl font-semibold">All Pages ({Router.length})</h1>
-        <ul>
-          {Router.map((route) => {
-            return (
-              <>
-                <li>
-                  <Link to={route.path} className="text-blue-500 underline">
-                    {route.path}
-                  </Link>
-                </li>
-              </>
-            );
-          })}
-        </ul>
+      <Navbar
+        isLogin={isLogin}
+        setLogin={setLogin}
+        onInteraction={handleSidebarInteraction}
+      />
+      {isLogin && (
+        <Sidebar setLogin={setLogin} onInteraction={handleSidebarInteraction} />
+      )}
+      <div
+        className={
+          `min-h-screen bg-blue-gray-50 px-10 lg:px-5 ` +
+          (isLogin && `  lg:ml-[20rem]`)
+        }
+      >
+        {content ? content : <Landing />}
       </div>
     </>
   );
 }
-
-export default App;
